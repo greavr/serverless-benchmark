@@ -1,0 +1,5 @@
+flask==2.3.3
+redis==5.0.0
+google-cloud-profiler==4.1.0
+sqlalchemy==2.0.20
+google-cloud-logging==3.6.0
