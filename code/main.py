@@ -1,13 +1,13 @@
 from flask import Flask, render_template
 import logging
-import helpers.logging
+from helpers.logging import logs, apm   
 import os
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", storageLocations=["a","b","c"],fileTest=[10,100,1], mysqlLocations=["a","b","c"],mysqlTest=1000,redisLocations=["a","b","c"], redisTest=[1000,700]  )
 
 if __name__ == "__main__":
     """ Main Entry point """
@@ -18,17 +18,17 @@ if __name__ == "__main__":
 
     try:
         # Check if should enable Logging
-        enable_logging = bool(os.getenv("ENABLE_LOGGING"))
+        enable_logging = bool(os.environ.get("ENABLE_LOGGING", True))
         # Enable logging
         if enable_logging:
-            helpers.logging.enable_logging()
+            logs.cloud_logging()
 
         # Check to see if OpenTelemetary should be opened
-        enable_apm = bool(os.getenv("ENABLE_APM"))
+        enable_apm = bool(os.environ.get("ENABLE_APM", True))
 
         #Enable APM
         if enable_apm:
-                helpers.logging.cloud_profiler()
+                apm.cloud_profiler()
         
         
     except Exception as ex:

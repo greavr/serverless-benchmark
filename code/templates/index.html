@@ -4,9 +4,126 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Google Cloud - Serverless Benchmarking</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 </head>
 <body>
-    <h1>Index</h1>
+    <div class="container">
+        <form>
+          <h1>Google Cloud - Serverless Benchmarking</h1>
+          Benchmark the gap between Cloud Run and VPC based resources. The same python function is run per environment tested and is timed. The results are output below.
+          <div class="row">
+            <div class="column">
+              <h2>Storage Mounts</h2>
+              <p>There are three storage location, two external and one local. The local is used as the control.</p>
+              <ul>
+                {% for aLoc in storageLocations %}
+                <li>{{ aLoc }}</li>
+                {% endfor %}
+              </ul>
+              <p>Storage Test will do the following:</p>
+              <ol>
+                <li>Create a single large file, size of {{ fileTest[0] }}GB</li>
+                <li>Create {{ fileTest[1] }} files, each one {{ fileTest[2] }}kb</li>
+                <li>Read each of the files create in #2</li>
+                <li>Delete all files created</li>
+              </ol>
+              <div class="button-container">
+                <button type="button" class="button" id="storageTest"><span>Storage Test</span></button>
+              </div>
+            </div>
+            
+            <div class="column">
+              <h2>MySQL Database</h2>
+              <p>Python will connect to the same database and execute the same queries</p>
+              <ul>
+                {% for aLoc in mysqlLocations %}
+                <li>{{ aLoc }}</li>
+                {% endfor %}
+              </ul>
+              <p>MySQL Test will do the following:</p>
+              <ol>
+                <li>Write {{ mysqlTest[0] }} # of rows</li>
+                <li>Read {{ mysqlTest[0] }} of rows</li>
+                <li>Delete all rows created</li>
+              </ol>
+              <div class="button-container">
+                <button type="button" class="button" id="mysqlTest"><span>MySQL Test</span></button>
+              </div>
+            </div>
+            
+            <div class="column">
+              <h2>Redis Cache</h2>
+              <p>Python will connect to the same cache different ways and run the same queries.</p>
+              <ul>
+                {% for aLoc in redisLocations %}
+                <li>{{ aLoc }}</li>
+                {% endfor %}
+              </ul>
+              <p>Reddis Test will do the following:</p>
+              <ol>
+                <li>Create {{ redisTest[0] }} # of entries</li>
+                <li>Randomly Select {{ redisTest[1] }} entries</li>
+                <li>Delete all entries created</li>
+              </ol>
+              <div class="button-container">
+                <button type="button" class="button" id="redisTest"><span>Redis Test</span></button>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <select>
+              <option>Value 1</option>
+              <option>Value 2</option>
+            </select>
+            <label for="select" class="control-label">Selectbox</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <input type="text" required="required"/>
+            <label for="input" class="control-label">Textfield</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <textarea required="required"></textarea>
+            <label for="textarea" class="control-label">Textarea</label><i class="bar"></i>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked"/><i class="helper"></i>I'm the label from a checkbox
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"/><i class="helper"></i>I'm the label from a checkbox
+            </label>
+          </div>
+          <div class="form-radio">
+            <div class="radio">
+              <label>
+                <input type="radio" name="radio" checked="checked"/><i class="helper"></i>I'm the label from a radio button
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="radio"/><i class="helper"></i>I'm the label from a radio button
+              </label>
+            </div>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"/><i class="helper"></i>I'm the label from a checkbox
+            </label>
+          </div>
+        </form>
+        <div class="button-container">
+          <button type="button" class="button"><span>Submit</span></button>
+        </div> -->
+
+        <div class="footer">
+            <p><a href="#">Application Settings</a></p>
+            <hr width="50%"/>
+            <p>The above measurement is for illustration purposes only. Every application is different and your performance <b>WILL BE DIFFERENT</b>.</p>
+        </div>
+      </div>
 </body>
 </html>
