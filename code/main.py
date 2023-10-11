@@ -1,7 +1,9 @@
 from flask import Flask, render_template
 import logging
 from helpers.logging import logs, apm   
+from helpers.storage import storage
 import os
+import time
 
 app = Flask(__name__)
 
@@ -36,4 +38,16 @@ if __name__ == "__main__":
         logging.exception(str(ex))
     
     # Finally run app
-    app.run()
+    #app.run())
+    st = time.time()
+    new_file = storage.CreateFile(Path='./', Size=1)
+    print(new_file)
+    et = time.time()
+    elapsed_time = et - st
+    print('Create File Execution time:', elapsed_time, 'seconds')
+
+    st = time.time()
+    print(storage.DeleteFile(Path=new_file))
+    et = time.time()
+    elapsed_time = et - st
+    print('Delete File Execution time:', elapsed_time, 'seconds')
