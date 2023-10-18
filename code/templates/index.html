@@ -7,6 +7,10 @@
     <title>Google Cloud - Serverless Benchmarking</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <script src="{{url_for('static', filename='graph.js')}}"></script>
+
 </head>
 <body>
     <div class="container">
@@ -30,7 +34,7 @@
                 <li>Delete all files created</li>
               </ol>
               <div class="button-container">
-                <button type="button" class="button" id="storageTest"><span>Storage Test</span></button>
+                <button type="button" class="button" id="storageTest" onclick="GraphHandler('storage')"><span>Storage Test</span></button>
               </div>
             </div>
             
@@ -44,12 +48,11 @@
               </ul>
               <p>MySQL Test will do the following:</p>
               <ol>
-                <li>Write {{ mysqlTest[0] }} # of rows</li>
-                <li>Read {{ mysqlTest[0] }} of rows</li>
-                <li>Delete all rows created</li>
+                <li>Write {{ mysqlTest[0] }} rows</li>
+                <li>Read {{ mysqlTest[0] }} rows (in random order)</li>
               </ol>
               <div class="button-container">
-                <button type="button" class="button" id="mysqlTest"><span>MySQL Test</span></button>
+                <button type="button" class="button" id="mysqlTest" onclick="GraphHandler('sql')"><span>MySQL Test</span></button>
               </div>
             </div>
             
@@ -68,56 +71,12 @@
                 <li>Delete all entries created</li>
               </ol>
               <div class="button-container">
-                <button type="button" class="button" id="redisTest"><span>Redis Test</span></button>
+                <button type="button" class="button" id="redisTest" onclick="GraphHandler('redis')"><span>Redis Test</span></button>
               </div>
             </div>
           </div>
-          <!-- <div class="form-group">
-            <select>
-              <option>Value 1</option>
-              <option>Value 2</option>
-            </select>
-            <label for="select" class="control-label">Selectbox</label><i class="bar"></i>
-          </div>
-          <div class="form-group">
-            <input type="text" required="required"/>
-            <label for="input" class="control-label">Textfield</label><i class="bar"></i>
-          </div>
-          <div class="form-group">
-            <textarea required="required"></textarea>
-            <label for="textarea" class="control-label">Textarea</label><i class="bar"></i>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked"/><i class="helper"></i>I'm the label from a checkbox
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"/><i class="helper"></i>I'm the label from a checkbox
-            </label>
-          </div>
-          <div class="form-radio">
-            <div class="radio">
-              <label>
-                <input type="radio" name="radio" checked="checked"/><i class="helper"></i>I'm the label from a radio button
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="radio"/><i class="helper"></i>I'm the label from a radio button
-              </label>
-            </div>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"/><i class="helper"></i>I'm the label from a checkbox
-            </label>
-          </div>
-        </form>
-        <div class="button-container">
-          <button type="button" class="button"><span>Submit</span></button>
-        </div> -->
+
+          <div id="myChart"></div>
 
         <div class="footer">
             <p><a href="#">Application Settings</a></p>

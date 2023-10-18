@@ -25,6 +25,23 @@ Run the following command
 deactivate
 ```
 
+## Run MySQL Locally:
+```bash
+docker run \
+--detach \
+--env="MYSQL_ROOT_PASSWORD=password" \
+--publish 3306:3306 \
+mysql
+```
+
+## Run Redis Locally:
+```bash
+docker run \
+--detach \
+--publish 6379:6379 \
+redis
+```
+
 ## Environment Variables ##
 The following environment variables can be set:
   - **ENABLE_LOGGING** - BOOL - Enable Logging
